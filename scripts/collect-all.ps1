@@ -366,7 +366,15 @@ function Get-AgentSnapshot([string]$WorkspacePath, $EditorSnapshot) {
 }
 
 function Get-DetectedNames($Items, [string]$PropertyName) {
-  @($Items | Where-Object { $_.detected -eq $true } | ForEach-Object { $_.$PropertyName })
+  @($Items | Where-Object { $_.detected -eq $true } | ForEach-Object { Format-DisplayName $_.$PropertyName })
+}
+
+function Format-DisplayName([string]$Name) {
+  switch -Regex ($Name) {
+    "^anthropic\.claude-code$" { return "Claude Code extension" }
+    "^openai\.chatgpt$" { return "ChatGPT extension" }
+    default { return $Name }
+  }
 }
 
 function Write-Markdown($Path, [string[]]$Lines) {
@@ -443,29 +451,51 @@ function Render-IndexMarkdown($OutputPath, $Summary, $MachineMarkdownLinks) {
   $lines.Add("")
   $lines.Add("# Dev Environment")
   $lines.Add("")
-  $lines.Add("This page is generated from `yuykim_Profile`. It records the development machines, tools, runtimes, editors, agents, and workspace usage signals needed to rebuild the environment.")
+  $lines.Add("This page is generated from ``yuykim_Profile``. It is the public setup snapshot I use when rebuilding a laptop or desktop.")
   $lines.Add("")
   $lines.Add("- Last updated: $($Summary.updated_at)")
   $lines.Add("- Machines: $(@($Summary.machines).Count)")
   $lines.Add("")
-  $lines.Add("## Machines")
+  $lines.Add("## Machine Specs")
   $lines.Add("")
   foreach ($machine in $Summary.machines) {
-    $lines.Add("- [$($machine.label)](machines/$($machine.id)/): $($machine.role)")
+    $lines.Add("### [$($machine.label)](machines/$($machine.id)/)")
+    $lines.Add("")
+    $lines.Add("- Role: $($machine.role)")
+    $lines.Add("- Model: $($machine.system.model)")
+    $lines.Add("- OS: $($machine.system.os)")
+    $lines.Add("- CPU: $($machine.system.cpu)")
+    $lines.Add("- GPU: $($machine.system.gpu)")
+    $lines.Add("- RAM: $($machine.system.ram_gb) GB")
+    $lines.Add("- Disk: $($machine.system.disks)")
+    $lines.Add("- VS Code extensions: $($machine.editors.vscode_extensions)")
+    $lines.Add("- Cursor extensions: $($machine.editors.cursor_extensions)")
+    $lines.Add("")
   }
-  $lines.Add("")
-  $lines.Add("## Common Stack")
+  $lines.Add("## Core Stack")
   $lines.Add("")
   $lines.Add("### Languages and Runtimes")
-  foreach ($name in $Summary.common.languages) { $lines.Add("- $name") }
+  foreach ($name in $Summary.common.languages) {
+    if (@("Python", "pip", "Conda", "Node.js", "npm", "pnpm", "Java", ".NET", "Go", "Rust", "Git") -contains $name) {
+      $lines.Add("- $name")
+    }
+  }
   $lines.Add("")
   $lines.Add("### Tools and Editors")
-  foreach ($name in $Summary.common.tools) { $lines.Add("- $name") }
+  foreach ($name in $Summary.common.tools) {
+    if (@("VS Code", "Cursor", "Docker", "Docker Compose", "WSL", "Unity Hub", "Conda", "GitHub CLI", "Homebrew") -contains $name) {
+      $lines.Add("- $name")
+    }
+  }
   $lines.Add("")
-  $lines.Add("### Agents")
-  foreach ($name in $Summary.common.agents) { $lines.Add("- $name") }
+  $lines.Add("## Agents")
+  foreach ($name in $Summary.common.agents) {
+    if ($name -match "Codex|Claude|OpenAI|ChatGPT|Gemini|Copilot|Cline|Roo|Continue") {
+      $lines.Add("- $name")
+    }
+  }
   $lines.Add("")
-  $lines.Add("## Workspace Usage")
+  $lines.Add("## Workspace Signals")
   $lines.Add("")
   foreach ($signal in $Summary.workspace_usage) {
     if ($signal.count -gt 0) { $lines.Add("- $($signal.name): $($signal.count)") }
@@ -518,6 +548,18 @@ foreach ($dir in $machineDirs) {
     label = $sys.machine.label
     role = $sys.machine.role
     collected_at = $sys.collected_at
+    system = [pscustomobject]@{
+      os = "$($sys.os.caption) $($sys.os.version)"
+      model = "$($sys.hardware.manufacturer) $($sys.hardware.model)".Trim()
+      cpu = $sys.hardware.cpu
+      gpu = ((@($sys.hardware.gpu) | ForEach-Object { $_.name }) -join ", ")
+      ram_gb = $sys.hardware.ram_gb
+      disks = ((@($sys.hardware.disks) | ForEach-Object { "$($_.drive) $($_.size_gb)GB" }) -join ", ")
+    }
+    editors = [pscustomobject]@{
+      vscode_extensions = if ($edit) { @($edit.vscode_extensions.extensions).Count } else { 0 }
+      cursor_extensions = if ($edit) { @($edit.cursor_extensions.extensions).Count } else { 0 }
+    }
   }
 
   if ($lang) { $allLanguages += Get-DetectedNames $lang.languages "name" }

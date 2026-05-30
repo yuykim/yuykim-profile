@@ -1,8 +1,8 @@
-﻿# yuykim
+﻿# Main Laptop
 
 - Role: development machine
-- Machine ID: `yuykim`
-- Last collected: 2026-05-30T09:00:32.2461811Z
+- Machine ID: `main-laptop`
+- Last collected: 2026-05-30T09:12:50.2981411Z
 
 ## System
 

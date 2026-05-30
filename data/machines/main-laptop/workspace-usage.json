@@ -1,8 +1,8 @@
 ﻿{
-    "collected_at":  "2026-05-30T09:01:07.8317224Z",
+    "collected_at":  "2026-05-30T09:13:22.1656970Z",
     "workspace_path":  "WORKSPACE",
     "detected":  true,
-    "scanned_files":  28922,
+    "scanned_files":  28923,
     "signals":  [
                     {
                         "name":  "Node/Web",

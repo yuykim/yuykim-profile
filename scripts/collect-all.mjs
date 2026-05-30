@@ -266,7 +266,15 @@ function collectAgents(root, editorSnapshot) {
 }
 
 function detectedNames(items) {
-  return [...new Set(items.filter((item) => item.detected).map((item) => item.name))].sort();
+  return [...new Set(items.filter((item) => item.detected).map((item) => displayName(item.name)))].sort();
+}
+
+function displayName(name) {
+  const names = {
+    "anthropic.claude-code": "Claude Code extension",
+    "openai.chatgpt": "ChatGPT extension",
+  };
+  return names[name] ?? name;
 }
 
 function buildSummary() {
@@ -282,12 +290,29 @@ function buildSummary() {
     const dir = path.join(machinesRoot, id);
     const sys = readJson(path.join(dir, "system.json"));
     if (!sys) continue;
-    machines.push({ id: sys.machine.id, label: sys.machine.label, role: sys.machine.role, collected_at: sys.collected_at });
     const lang = readJson(path.join(dir, "languages.json"));
     const tool = readJson(path.join(dir, "tools.json"));
     const edit = readJson(path.join(dir, "editors.json"));
     const agent = readJson(path.join(dir, "agents.json"));
     const work = readJson(path.join(dir, "workspace-usage.json"));
+    machines.push({
+      id: sys.machine.id,
+      label: sys.machine.label,
+      role: sys.machine.role,
+      collected_at: sys.collected_at,
+      system: {
+        os: sys.os.summary ?? `${sys.os.caption ?? ""} ${sys.os.version ?? ""}`.trim(),
+        model: [sys.hardware.manufacturer, sys.hardware.model].filter(Boolean).join(" "),
+        cpu: sys.hardware.cpu,
+        gpu: (sys.hardware.gpu ?? []).map((item) => item.name).join(", "),
+        ram_gb: sys.hardware.ram_gb,
+        disks: (sys.hardware.disks ?? []).map((item) => `${item.drive} ${item.size ?? `${item.size_gb}GB`}`).join(", "),
+      },
+      editors: {
+        vscode_extensions: edit?.vscode_extensions?.extensions?.length ?? 0,
+        cursor_extensions: edit?.cursor_extensions?.extensions?.length ?? 0,
+      },
+    });
     if (lang) allLanguages.push(...detectedNames(lang.languages));
     if (tool) allTools.push(...detectedNames(tool.tools));
     if (edit) allTools.push(...detectedNames(edit.editors));
@@ -340,6 +365,24 @@ function renderMachine(sys, lang, tool, edit, agent, work) {
 }
 
 function renderIndex(summary) {
+  const languagePriority = new Set(["Python", "pip", "Conda", "Node.js", "npm", "pnpm", "Java", ".NET", "Go", "Rust", "Git"]);
+  const toolPriority = new Set(["VS Code", "Cursor", "Docker", "Docker Compose", "WSL", "Unity Hub", "Conda", "GitHub CLI", "Homebrew"]);
+  const agentPattern = /Codex|Claude|OpenAI|ChatGPT|Gemini|Copilot|Cline|Roo|Continue/i;
+  const machineLines = summary.machines.flatMap((item) => [
+    `### [${item.label}](machines/${item.id}/)`,
+    "",
+    `- Role: ${item.role}`,
+    `- Model: ${item.system.model}`,
+    `- OS: ${item.system.os}`,
+    `- CPU: ${item.system.cpu}`,
+    `- GPU: ${item.system.gpu}`,
+    `- RAM: ${item.system.ram_gb} GB`,
+    `- Disk: ${item.system.disks}`,
+    `- VS Code extensions: ${item.editors.vscode_extensions}`,
+    `- Cursor extensions: ${item.editors.cursor_extensions}`,
+    "",
+  ]);
+
   const lines = [
     "---",
     'title: "Dev Environment"',
@@ -348,27 +391,26 @@ function renderIndex(summary) {
     "",
     "# Dev Environment",
     "",
-    "This page is generated from `yuykim_Profile`. It records the development machines, tools, runtimes, editors, agents, and workspace usage signals needed to rebuild the environment.",
+    "This page is generated from `yuykim_Profile`. It is the public setup snapshot I use when rebuilding a laptop or desktop.",
     "",
     `- Last updated: ${summary.updated_at}`,
     `- Machines: ${summary.machines.length}`,
     "",
-    "## Machines",
+    "## Machine Specs",
     "",
-    ...summary.machines.map((item) => `- [${item.label}](machines/${item.id}/): ${item.role}`),
-    "",
-    "## Common Stack",
+    ...machineLines,
+    "## Core Stack",
     "",
     "### Languages and Runtimes",
-    ...summary.common.languages.map((item) => `- ${item}`),
+    ...summary.common.languages.filter((item) => languagePriority.has(item)).map((item) => `- ${item}`),
     "",
     "### Tools and Editors",
-    ...summary.common.tools.map((item) => `- ${item}`),
+    ...summary.common.tools.filter((item) => toolPriority.has(item)).map((item) => `- ${item}`),
     "",
-    "### Agents",
-    ...summary.common.agents.map((item) => `- ${item}`),
+    "## Agents",
+    ...summary.common.agents.filter((item) => agentPattern.test(item)).map((item) => `- ${item}`),
     "",
-    "## Workspace Usage",
+    "## Workspace Signals",
     "",
     ...summary.workspace_usage.filter((item) => item.count > 0).map((item) => `- ${item.name}: ${item.count}`),
   ];

@@ -3,8 +3,8 @@
     "owner": "yuykim"
   },
   "machine": {
-    "id": "",
-    "label": "",
+    "id": "main-laptop",
+    "label": "Main Laptop",
     "role": "development machine",
     "model": "ASUS TUF Gaming A14 FA401UV-RG025"
   },

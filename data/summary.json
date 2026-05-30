@@ -1,11 +1,23 @@
 ﻿{
-    "updated_at":  "2026-05-30T09:01:14.7615922Z",
+    "updated_at":  "2026-05-30T09:13:28.5676034Z",
     "machines":  [
                      {
-                         "id":  "yuykim",
-                         "label":  "yuykim",
+                         "id":  "main-laptop",
+                         "label":  "Main Laptop",
                          "role":  "development machine",
-                         "collected_at":  "2026-05-30T09:00:32.2461811Z"
+                         "collected_at":  "2026-05-30T09:12:50.2981411Z",
+                         "system":  {
+                                        "os":  "Microsoft Windows 11 Home 10.0.26200",
+                                        "model":  "ASUSTeK COMPUTER INC. ASUS TUF Gaming A14 FA401UV-RG025",
+                                        "cpu":  "AMD Ryzen 7 8845HS w/ Radeon 780M Graphics",
+                                        "gpu":  "NVIDIA GeForce RTX 4060 Laptop GPU, AMD Radeon 780M Graphics",
+                                        "ram_gb":  31.3,
+                                        "disks":  "C: 476GB, D: 811.5GB"
+                                    },
+                         "editors":  {
+                                         "vscode_extensions":  49,
+                                         "cursor_extensions":  0
+                                     }
                      }
                  ],
     "common":  {
@@ -26,10 +38,10 @@
                                  "WSL"
                              ],
                    "agents":  [
-                                  "anthropic.claude-code",
+                                  "ChatGPT extension",
+                                  "Claude Code extension",
                                   "Codex",
-                                  "OpenAI CLI",
-                                  "openai.chatgpt"
+                                  "OpenAI CLI"
                               ]
                },
     "workspace_usage":  [
