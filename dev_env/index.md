@@ -1,13 +1,13 @@
 ﻿---
 title: "Dev Environment"
-updated: "2026-05-30T08:21:40.2366704Z"
+updated: "2026-05-30T09:01:14.7615922Z"
 ---
 
 # Dev Environment
 
 This page is generated from yuykim_Profile. It records the development machines, tools, runtimes, editors, agents, and workspace usage signals needed to rebuild the environment.
 
-- Last updated: 2026-05-30T08:21:40.2366704Z
+- Last updated: 2026-05-30T09:01:14.7615922Z
 - Machines: 1
 
 ## Machines
@@ -43,7 +43,7 @@ This page is generated from yuykim_Profile. It records the development machines,
 - .NET project: 151
 - .NET solution: 13
 - Dockerfile: 6
-- Jupyter Notebook: 17
+- Jupyter Notebook: 18
 - Node/Web: 12
 - Python project: 1
 - Python requirements: 2

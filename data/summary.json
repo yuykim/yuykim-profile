@@ -1,11 +1,11 @@
 ﻿{
-    "updated_at":  "2026-05-30T08:21:40.2366704Z",
+    "updated_at":  "2026-05-30T09:01:14.7615922Z",
     "machines":  [
                      {
                          "id":  "yuykim",
                          "label":  "yuykim",
                          "role":  "development machine",
-                         "collected_at":  "2026-05-30T08:20:59.9570135Z"
+                         "collected_at":  "2026-05-30T09:00:32.2461811Z"
                      }
                  ],
     "common":  {
@@ -51,7 +51,7 @@
                             },
                             {
                                 "name":  "Jupyter Notebook",
-                                "count":  17
+                                "count":  18
                             },
                             {
                                 "name":  "Node/Web",

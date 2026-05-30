@@ -1,5 +1,5 @@
 ﻿{
-    "collected_at":  "2026-05-30T08:21:08.3787201Z",
+    "collected_at":  "2026-05-30T09:00:38.0383111Z",
     "editors":  [
                     {
                         "name":  "VS Code",
@@ -229,6 +229,6 @@
                               "extensions":  [
 
                                              ],
-                              "error":  "(node:42536) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead."
+                              "error":  "(node:26716) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead."
                           }
 }

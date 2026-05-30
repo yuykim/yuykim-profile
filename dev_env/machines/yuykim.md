@@ -2,7 +2,7 @@
 
 - Role: development machine
 - Machine ID: `yuykim`
-- Last collected: 2026-05-30T08:20:59.9570135Z
+- Last collected: 2026-05-30T09:00:32.2461811Z
 
 ## System
 
@@ -79,7 +79,7 @@ x64
 - Node/Web: 12
 - Python requirements: 2
 - Python project: 1
-- Jupyter Notebook: 17
+- Jupyter Notebook: 18
 - Unity: 17
 - .NET solution: 13
 - .NET project: 151
