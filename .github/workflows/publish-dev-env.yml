@@ -1,6 +1,7 @@
 name: Publish Dev Env
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -12,6 +13,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      BLOG_TOKEN: ${{ secrets.BLOG_DISPATCH_TOKEN }}
 
     steps:
       - name: Checkout source repository
@@ -23,13 +26,12 @@ jobs:
         run: test -f dev_env/index.md
 
       - name: Skip when dispatch token is missing
-        if: ${{ secrets.BLOG_DISPATCH_TOKEN == '' }}
+        if: ${{ env.BLOG_TOKEN == '' }}
         run: echo "BLOG_DISPATCH_TOKEN is not configured; skipping blog dispatch."
 
       - name: Send repository dispatch to blog
-        if: ${{ secrets.BLOG_DISPATCH_TOKEN != '' }}
+        if: ${{ env.BLOG_TOKEN != '' }}
         env:
-          BLOG_TOKEN: ${{ secrets.BLOG_DISPATCH_TOKEN }}
           SOURCE_REPO: ${{ github.repository }}
           SOURCE_SHA: ${{ github.sha }}
           TARGET_BLOG_REPO: yuykim/yuykim-dev-diary
