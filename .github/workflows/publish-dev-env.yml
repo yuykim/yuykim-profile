@@ -22,7 +22,12 @@ jobs:
       - name: Check dev env output exists
         run: test -f dev_env/index.md
 
+      - name: Skip when dispatch token is missing
+        if: ${{ secrets.BLOG_DISPATCH_TOKEN == '' }}
+        run: echo "BLOG_DISPATCH_TOKEN is not configured; skipping blog dispatch."
+
       - name: Send repository dispatch to blog
+        if: ${{ secrets.BLOG_DISPATCH_TOKEN != '' }}
         env:
           BLOG_TOKEN: ${{ secrets.BLOG_DISPATCH_TOKEN }}
           SOURCE_REPO: ${{ github.repository }}
