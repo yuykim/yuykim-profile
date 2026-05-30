@@ -1,0 +1,73 @@
+﻿{
+    "updated_at":  "2026-05-30T08:16:03.6595535Z",
+    "machines":  [
+                     {
+                         "id":  "yuykim",
+                         "label":  "yuykim",
+                         "role":  "development machine",
+                         "collected_at":  "2026-05-30T08:15:17.7577330Z"
+                     }
+                 ],
+    "common":  {
+                   "languages":  [
+                                     ".NET",
+                                     "Git",
+                                     "Node.js",
+                                     "npm",
+                                     "pip",
+                                     "Python"
+                                 ],
+                   "tools":  [
+                                 "Conda",
+                                 "Cursor",
+                                 "Docker",
+                                 "Docker Compose",
+                                 "VS Code",
+                                 "WSL"
+                             ],
+                   "agents":  [
+                                  "anthropic.claude-code",
+                                  "Codex",
+                                  "OpenAI CLI",
+                                  "openai.chatgpt"
+                              ]
+               },
+    "workspace_usage":  [
+                            {
+                                "name":  ".NET project",
+                                "count":  151
+                            },
+                            {
+                                "name":  ".NET solution",
+                                "count":  13
+                            },
+                            {
+                                "name":  "Docker Compose",
+                                "count":  0
+                            },
+                            {
+                                "name":  "Dockerfile",
+                                "count":  6
+                            },
+                            {
+                                "name":  "Jupyter Notebook",
+                                "count":  17
+                            },
+                            {
+                                "name":  "Node/Web",
+                                "count":  12
+                            },
+                            {
+                                "name":  "Python project",
+                                "count":  1
+                            },
+                            {
+                                "name":  "Python requirements",
+                                "count":  2
+                            },
+                            {
+                                "name":  "Unity",
+                                "count":  17
+                            }
+                        ]
+}

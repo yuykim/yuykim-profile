@@ -1,0 +1,95 @@
+﻿{
+    "collected_at":  "2026-05-30T08:15:19.5830268Z",
+    "tools":  [
+                  {
+                      "name":  "VS Code",
+                      "command":  "code",
+                      "detected":  true,
+                      "version":  "1.122.0\n6a49527b96e326fe62fbdb56f60e16877c9aa724\nx64",
+                      "source":  "command",
+                      "path":  null,
+                      "error":  null
+                  },
+                  {
+                      "name":  "Cursor",
+                      "command":  "cursor",
+                      "detected":  true,
+                      "version":  "3.6.21\ne7a7e93f4d75f8272503ecf33cedbaae10114a10\nx64",
+                      "source":  "command",
+                      "path":  null,
+                      "error":  null
+                  },
+                  {
+                      "name":  "Unity Hub",
+                      "command":  "Unity Hub",
+                      "detected":  false,
+                      "version":  null,
+                      "source":  "missing",
+                      "path":  null,
+                      "error":  "command not found"
+                  },
+                  {
+                      "name":  "Docker",
+                      "command":  "docker",
+                      "detected":  true,
+                      "version":  "Docker version 29.1.3, build f52814d",
+                      "source":  "command",
+                      "path":  null,
+                      "error":  null
+                  },
+                  {
+                      "name":  "Docker Compose",
+                      "command":  "docker",
+                      "detected":  true,
+                      "version":  "Docker Compose version v2.40.3-desktop.1",
+                      "source":  "command",
+                      "path":  null,
+                      "error":  null
+                  },
+                  {
+                      "name":  "WSL",
+                      "command":  "wsl",
+                      "detected":  true,
+                      "version":  "WSL ��\u0004�: 2.5.10.0\n\n��\u0010� ��\u0004�: 6.6.87.2-1\n\nWSLg ��\u0004�: 1.0.66\n\nMSRDC ��\u0004�: 1.2.6074\n",
+                      "source":  "command",
+                      "path":  null,
+                      "error":  null
+                  },
+                  {
+                      "name":  "Conda",
+                      "command":  "conda",
+                      "detected":  true,
+                      "version":  "conda 25.9.1",
+                      "source":  "command",
+                      "path":  null,
+                      "error":  null
+                  },
+                  {
+                      "name":  "Android Debug Bridge",
+                      "command":  "adb",
+                      "detected":  false,
+                      "version":  null,
+                      "source":  "missing",
+                      "path":  null,
+                      "error":  "command not found"
+                  },
+                  {
+                      "name":  "Android Studio",
+                      "command":  "studio64",
+                      "detected":  false,
+                      "version":  null,
+                      "source":  "missing",
+                      "path":  null,
+                      "error":  "command not found"
+                  },
+                  {
+                      "name":  "GitHub CLI",
+                      "command":  "gh",
+                      "detected":  false,
+                      "version":  null,
+                      "source":  "missing",
+                      "path":  null,
+                      "error":  "command not found"
+                  }
+              ]
+}

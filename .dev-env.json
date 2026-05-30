@@ -1,0 +1,17 @@
+{
+  "profile": {
+    "owner": "yuykim"
+  },
+  "machine": {
+    "id": "",
+    "label": "",
+    "role": "development machine"
+  },
+  "workspace": {
+    "path": "D:/PARA/WORKSPACE"
+  },
+  "publish": {
+    "target_blog_repo": "yuykim/yuykim-dev-diary",
+    "public_detail_level": "normal"
+  }
+}

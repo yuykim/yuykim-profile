@@ -1,0 +1,131 @@
+﻿{
+    "collected_at":  "2026-05-30T08:15:17.7716674Z",
+    "languages":  [
+                      {
+                          "name":  "Python",
+                          "command":  "python",
+                          "detected":  true,
+                          "version":  "Python 3.13.5",
+                          "source":  "command",
+                          "path":  null,
+                          "error":  null
+                      },
+                      {
+                          "name":  "Python Launcher",
+                          "command":  "py",
+                          "detected":  false,
+                          "version":  null,
+                          "source":  "missing",
+                          "path":  null,
+                          "error":  "command not found"
+                      },
+                      {
+                          "name":  "pip",
+                          "command":  "pip",
+                          "detected":  true,
+                          "version":  "pip 25.1 from %USERPROFILE%\\miniconda3\\Lib\\site-packages\\pip (python 3.13)",
+                          "source":  "command",
+                          "path":  null,
+                          "error":  null
+                      },
+                      {
+                          "name":  "Node.js",
+                          "command":  "node",
+                          "detected":  true,
+                          "version":  "v24.11.0",
+                          "source":  "command",
+                          "path":  null,
+                          "error":  null
+                      },
+                      {
+                          "name":  "npm",
+                          "command":  "npm",
+                          "detected":  true,
+                          "version":  "11.6.1",
+                          "source":  "command",
+                          "path":  null,
+                          "error":  null
+                      },
+                      {
+                          "name":  "pnpm",
+                          "command":  "pnpm",
+                          "detected":  false,
+                          "version":  null,
+                          "source":  "missing",
+                          "path":  null,
+                          "error":  "command not found"
+                      },
+                      {
+                          "name":  "Yarn",
+                          "command":  "yarn",
+                          "detected":  false,
+                          "version":  null,
+                          "source":  "missing",
+                          "path":  null,
+                          "error":  "command not found"
+                      },
+                      {
+                          "name":  "Java",
+                          "command":  "java",
+                          "detected":  false,
+                          "version":  null,
+                          "source":  "missing",
+                          "path":  null,
+                          "error":  "command not found"
+                      },
+                      {
+                          "name":  "javac",
+                          "command":  "javac",
+                          "detected":  false,
+                          "version":  null,
+                          "source":  "missing",
+                          "path":  null,
+                          "error":  "command not found"
+                      },
+                      {
+                          "name":  ".NET",
+                          "command":  "dotnet",
+                          "detected":  true,
+                          "version":  null,
+                          "source":  "command",
+                          "path":  null,
+                          "error":  "The command could not be loaded, possibly because:"
+                      },
+                      {
+                          "name":  "Go",
+                          "command":  "go",
+                          "detected":  false,
+                          "version":  null,
+                          "source":  "missing",
+                          "path":  null,
+                          "error":  "command not found"
+                      },
+                      {
+                          "name":  "Rust",
+                          "command":  "rustc",
+                          "detected":  false,
+                          "version":  null,
+                          "source":  "missing",
+                          "path":  null,
+                          "error":  "command not found"
+                      },
+                      {
+                          "name":  "Cargo",
+                          "command":  "cargo",
+                          "detected":  false,
+                          "version":  null,
+                          "source":  "missing",
+                          "path":  null,
+                          "error":  "command not found"
+                      },
+                      {
+                          "name":  "Git",
+                          "command":  "git",
+                          "detected":  true,
+                          "version":  "git version 2.51.0.windows.1",
+                          "source":  "command",
+                          "path":  null,
+                          "error":  null
+                      }
+                  ]
+}

@@ -1,0 +1,61 @@
+﻿{
+    "collected_at":  "2026-05-30T08:16:00.8826134Z",
+    "agents":  [
+                   {
+                       "name":  "Codex",
+                       "command":  "codex",
+                       "detected":  true,
+                       "version":  "codex-cli 0.125.0",
+                       "source":  "command",
+                       "path":  null,
+                       "error":  null
+                   },
+                   {
+                       "name":  "Claude Code",
+                       "command":  "claude",
+                       "detected":  false,
+                       "version":  null,
+                       "source":  "missing",
+                       "path":  null,
+                       "error":  "command not found"
+                   },
+                   {
+                       "name":  "Gemini CLI",
+                       "command":  "gemini",
+                       "detected":  false,
+                       "version":  null,
+                       "source":  "missing",
+                       "path":  null,
+                       "error":  "command not found"
+                   },
+                   {
+                       "name":  "OpenAI CLI",
+                       "command":  "openai",
+                       "detected":  true,
+                       "version":  "openai 1.52.2",
+                       "source":  "command",
+                       "path":  null,
+                       "error":  null
+                   },
+                   {
+                       "name":  "anthropic.claude-code",
+                       "detected":  true,
+                       "version":  "2.1.158",
+                       "source":  "editor_extension"
+                   },
+                   {
+                       "name":  "openai.chatgpt",
+                       "detected":  true,
+                       "version":  "26.527.31454",
+                       "source":  "editor_extension"
+                   }
+               ],
+    "instruction_files":  [
+                              "D:\\PARA\\WORKSPACE\\AGENTS.md",
+                              "D:\\PARA\\WORKSPACE\\yuykim_Dev_Diary\\templates\\AGENTS.md",
+                              "D:\\PARA\\WORKSPACE\\team\\robot-indy7-pipette-physical-ai\\CLAUDE.md",
+                              "D:\\PARA\\WORKSPACE\\team\\contest-pohang-carfree-travel-plan\\AGENTS.md",
+                              "D:\\PARA\\WORKSPACE\\courses\\hub-cg-class-webgl\\webgl-threejs-vite-personal\\AGENTS.md",
+                              "D:\\PARA\\WORKSPACE\\courses\\db099-mysql-retail-db\\AGENTS.md"
+                          ]
+}

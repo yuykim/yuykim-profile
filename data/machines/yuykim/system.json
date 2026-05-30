@@ -1,0 +1,48 @@
+﻿{
+    "machine":  {
+                    "id":  "yuykim",
+                    "label":  "yuykim",
+                    "role":  "development machine"
+                },
+    "collected_at":  "2026-05-30T08:15:17.7577330Z",
+    "os":  {
+               "caption":  "Microsoft Windows 11 Home",
+               "version":  "10.0.26200",
+               "build_number":  "26200",
+               "architecture":  "64비트"
+           },
+    "hardware":  {
+                     "manufacturer":  "ASUSTeK COMPUTER INC.",
+                     "model":  "ASUS TUF Gaming A14 FA401UV_FA401UV",
+                     "cpu":  "AMD Ryzen 7 8845HS w/ Radeon 780M Graphics",
+                     "cpu_cores":  8,
+                     "cpu_logical_processors":  16,
+                     "ram_gb":  31.3,
+                     "gpu":  [
+                                 {
+                                     "name":  "NVIDIA GeForce RTX 4060 Laptop GPU",
+                                     "driver_version":  "32.0.15.9597",
+                                     "adapter_ram_gb":  4
+                                 },
+                                 {
+                                     "name":  "AMD Radeon 780M Graphics",
+                                     "driver_version":  "32.0.11038.5002",
+                                     "adapter_ram_gb":  0.5
+                                 }
+                             ],
+                     "disks":  [
+                                   {
+                                       "drive":  "C:",
+                                       "size_gb":  476,
+                                       "free_gb":  87.6,
+                                       "file_system":  "NTFS"
+                                   },
+                                   {
+                                       "drive":  "D:",
+                                       "size_gb":  811.5,
+                                       "free_gb":  104.1,
+                                       "file_system":  "NTFS"
+                                   }
+                               ]
+                 }
+}
