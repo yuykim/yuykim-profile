@@ -1,13 +1,13 @@
 ﻿---
 title: "Dev Environment"
-updated: "2026-05-30T08:16:03.6595535Z"
+updated: "2026-05-30T08:21:40.2366704Z"
 ---
 
 # Dev Environment
 
 This page is generated from yuykim_Profile. It records the development machines, tools, runtimes, editors, agents, and workspace usage signals needed to rebuild the environment.
 
-- Last updated: 2026-05-30T08:16:03.6595535Z
+- Last updated: 2026-05-30T08:21:40.2366704Z
 - Machines: 1
 
 ## Machines

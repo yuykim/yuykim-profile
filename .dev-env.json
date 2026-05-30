@@ -5,7 +5,8 @@
   "machine": {
     "id": "",
     "label": "",
-    "role": "development machine"
+    "role": "development machine",
+    "model": "ASUS TUF Gaming A14 FA401UV-RG025"
   },
   "workspace": {
     "path": "D:/PARA/WORKSPACE"

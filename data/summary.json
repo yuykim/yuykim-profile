@@ -1,11 +1,11 @@
 ﻿{
-    "updated_at":  "2026-05-30T08:16:03.6595535Z",
+    "updated_at":  "2026-05-30T08:21:40.2366704Z",
     "machines":  [
                      {
                          "id":  "yuykim",
                          "label":  "yuykim",
                          "role":  "development machine",
-                         "collected_at":  "2026-05-30T08:15:17.7577330Z"
+                         "collected_at":  "2026-05-30T08:20:59.9570135Z"
                      }
                  ],
     "common":  {

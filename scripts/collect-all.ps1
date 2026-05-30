@@ -28,11 +28,13 @@ function Get-MachineConfig($Config) {
   $id = if ($Config.machine.id) { ConvertTo-Slug $Config.machine.id } else { $fallbackId }
   $label = if ($Config.machine.label) { [string]$Config.machine.label } else { $id }
   $role = if ($Config.machine.role) { [string]$Config.machine.role } else { "development machine" }
+  $model = if (($Config.machine.PSObject.Properties.Name -contains "model") -and $Config.machine.model) { [string]$Config.machine.model } else { $null }
 
   [pscustomobject]@{
     id = $id
     label = $label
     role = $role
+    model = $model
   }
 }
 
@@ -137,7 +139,7 @@ function Get-SystemSnapshot($Machine) {
     }
     hardware = [pscustomobject]@{
       manufacturer = $computer.Manufacturer
-      model = $computer.Model
+      model = if ($Machine.model) { $Machine.model } else { $computer.Model }
       cpu = $cpu.Name
       cpu_cores = $cpu.NumberOfCores
       cpu_logical_processors = $cpu.NumberOfLogicalProcessors

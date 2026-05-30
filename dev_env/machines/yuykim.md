@@ -2,12 +2,12 @@
 
 - Role: development machine
 - Machine ID: `yuykim`
-- Last collected: 2026-05-30T08:15:17.7577330Z
+- Last collected: 2026-05-30T08:20:59.9570135Z
 
 ## System
 
 - OS: Microsoft Windows 11 Home 10.0.26200 (64비트)
-- Manufacturer/Model: ASUSTeK COMPUTER INC. ASUS TUF Gaming A14 FA401UV_FA401UV
+- Manufacturer/Model: ASUSTeK COMPUTER INC. ASUS TUF Gaming A14 FA401UV-RG025
 - CPU: AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
 - RAM: 31.3 GB
 - GPU: NVIDIA GeForce RTX 4060 Laptop GPU, AMD Radeon 780M Graphics

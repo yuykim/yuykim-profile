@@ -7,7 +7,7 @@ const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
 const configPath = path.join(repoRoot, ".dev-env.json");
 const config = readJson(configPath) ?? {
   profile: { owner: "yuykim" },
-  machine: { id: "", label: "", role: "development machine" },
+  machine: { id: "", label: "", role: "development machine", model: "" },
   workspace: { path: path.resolve(repoRoot, "..") },
 };
 
@@ -102,6 +102,7 @@ function getMachineConfig(value) {
     id,
     label: value.machine?.label || id,
     role: value.machine?.role || "development machine",
+    model: value.machine?.model || null,
   };
 }
 
@@ -158,7 +159,7 @@ function collectSystem(machineConfig) {
     },
     hardware: {
       manufacturer: isMac ? "Apple" : null,
-      model: extractMacModel(hardware),
+      model: machineConfig.model || extractMacModel(hardware),
       cpu,
       ram_gb: memGb,
       gpu: extractMacGpus(displays),
