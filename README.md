@@ -27,7 +27,10 @@ data/machines/<machine-id>/*.json
 data/summary.json
 dev_env/index.md
 dev_env/machines/<machine-id>.md
+local_docs/*.md
 ```
+
+`dev_env/` is the public blog-facing summary. `local_docs/` is the detailed local checklist for reviewing the current machine and rebuilding a development setup.
 
 ## Script Guide
 

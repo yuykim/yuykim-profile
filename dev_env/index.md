@@ -1,13 +1,13 @@
 ﻿---
 title: "Dev Environment"
-updated: "2026-05-30T09:13:28.5676034Z"
+updated: "2026-05-30T09:56:27.4859342Z"
 ---
 
 # Dev Environment
 
 This page is generated from `yuykim_Profile`. It is the public setup snapshot I use when rebuilding a laptop or desktop.
 
-- Last updated: 2026-05-30T09:13:28.5676034Z
+- Last updated: 2026-05-30T09:56:27.4859342Z
 - Machines: 1
 
 ## Machine Specs

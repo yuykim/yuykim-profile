@@ -1,0 +1,84 @@
+﻿# 워크스페이스 사용 흔적
+
+- scanned files: 28935
+
+- Node/Web: 12
+  - yuykim_Dev_Diary\package.json
+  - resources\upstream-unity-ml-agents\com.unity.ml-agents\package.json
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\unity-ml-soccer\ml-agents\com.unity.ml-agents.extensions\package.json
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\unity-ml-soccer\ml-agents\com.unity.ml-agents\package.json
+  - courses\hub-oss-class-2025-fall\week13-5-2-yuykim\package.json
+  - courses\hub-oss-class-2025-fall\week12-5-1-yuykim\package.json
+  - courses\hub-oss-class-2025-fall\project251117\package.json
+  - courses\hub-oss-class-2025-fall\OSS_Project\frontend\package.json
+  - courses\hub-oss-class-2025-fall\2025oss-hello-react\package.json
+  - courses\hub-oss-class-2025-fall\2025-2_oss_teamproject\package.json
+  - courses\hub-cg-class-webgl\webgl-threejs-vite-team\package.json
+  - courses\hub-cg-class-webgl\webgl-threejs-vite-personal\package.json
+- Python requirements: 2
+  - courses\hub-oss-class-2025-fall\OSS_Project\backend\requirements.txt
+  - courses\hub-oss-class-2025-fall\2025-2_oss_teamproject\backend\requirements.txt
+- Python project: 1
+  - team\robot-indy7-pipette-physical-ai\ai\lerobot_source\lerobot\pyproject.toml
+- Jupyter Notebook: 18
+  - resources\upstream-unity-ml-agents\ml-agents-envs\colabs\Colab_PettingZoo.ipynb
+  - resources\upstream-unity-ml-agents\colab\Colab_UnityEnvironment_1_Run.ipynb
+  - resources\upstream-unity-ml-agents\colab\Colab_UnityEnvironment_2_Train.ipynb
+  - resources\upstream-unity-ml-agents\colab\Colab_UnityEnvironment_3_SideChannel.ipynb
+  - resources\upstream-unity-ml-agents\colab\Colab_UnityEnvironment_4_SB3VectorEnv.ipynb
+  - personal\robot-control-indy7\indy7\indydcp3_example.ipynb
+  - personal\ml-gfootball-tracking-event-detection\PrintImage.ipynb
+  - personal\ml-gfootball-tracking-event-detection\.ipynb_checkpoints\PrintImage-checkpoint.ipynb
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\unity-ml-soccer\ml-agents\ml-agents-envs\colabs\Colab_PettingZoo.ipynb
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\unity-ml-soccer\ml-agents\colab\Colab_UnityEnvironment_1_Run.ipynb
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\unity-ml-soccer\ml-agents\colab\Colab_UnityEnvironment_2_Train.ipynb
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\unity-ml-soccer\ml-agents\colab\Colab_UnityEnvironment_3_SideChannel.ipynb
+- Unity: 17
+  - team\sirius-project-2025-winter\Sirius-Vacation-Project\ProjectSettings\ProjectVersion.txt
+  - team\sirius-gamejam-2025-summer\ProjectSettings\ProjectVersion.txt
+  - team\sirius-game-dev-club-handong\SIRIUS-Demo-2D-Platformer\ProjectSettings\ProjectVersion.txt
+  - team\sirius-game-dev-club-handong\Pratice Project\ProjectSettings\ProjectVersion.txt
+  - team\sirius-game-dev-club-handong\DoubleJumpWASD\ProjectSettings\ProjectVersion.txt
+  - team\sirius-game-dev-club-handong\dodgeGame_Demo\ProjectSettings\ProjectVersion.txt
+  - team\sirius-game-dev-club-handong\DemoGame_Sky-Sprinkler\ProjectSettings\ProjectVersion.txt
+  - resources\upstream-unity-ml-agents\Project\ProjectSettings\ProjectVersion.txt
+  - resources\upstream-unity-ml-agents\PerformanceProject\ProjectSettings\ProjectVersion.txt
+  - resources\upstream-unity-ml-agents\DevProject\ProjectSettings\ProjectVersion.txt
+  - personal\unity-xr-indoor-qr-navigation\ProjectSettings\ProjectVersion.txt
+  - personal\unity-hells-kitchen-game\ProjectSettings\ProjectVersion.txt
+- .NET solution: 13
+  - team\sirius-project-2025-winter\Sirius-Vacation-Project\Sirius-Vacation-Project.sln
+  - team\sirius-gamejam-2025-summer\2025-Summer-GameJam.sln
+  - team\sirius-game-dev-club-handong\SIRIUS-Demo-2D-Platformer\Pratice.sln
+  - team\sirius-game-dev-club-handong\SIRIUS-Demo-2D-Platformer\SIRIUS-Demo-2D-Platformer.sln
+  - team\sirius-game-dev-club-handong\Pratice Project\Pratice Project.sln
+  - team\sirius-game-dev-club-handong\DoubleJumpWASD\DoubleJumpWASD.sln
+  - team\sirius-game-dev-club-handong\dodgeGame_Demo\dodgeGame_Demo.sln
+  - team\sirius-game-dev-club-handong\DemoGame_Sky-Sprinkler\DemoGame_Sky-Sprinkler.sln
+  - personal\unity-xr-indoor-qr-navigation\XR_TransferHelper.sln
+  - personal\unity-hells-kitchen-game\Hell-s-Kitchen.sln
+  - personal\unity-dungeon-world-game\Vibe_coding_make_to_game.sln
+  - personal\unity-bugquest-game\BugQuest.sln
+- .NET project: 151
+  - team\sirius-project-2025-winter\Sirius-Vacation-Project\Assembly-CSharp.csproj
+  - team\sirius-gamejam-2025-summer\Assembly-CSharp.csproj
+  - team\sirius-game-dev-club-handong\SIRIUS-Demo-2D-Platformer\Assembly-CSharp.csproj
+  - team\sirius-game-dev-club-handong\Pratice Project\Assembly-CSharp-Editor.csproj
+  - team\sirius-game-dev-club-handong\Pratice Project\Assembly-CSharp.csproj
+  - team\sirius-game-dev-club-handong\DoubleJumpWASD\Assembly-CSharp-Editor.csproj
+  - team\sirius-game-dev-club-handong\DoubleJumpWASD\Assembly-CSharp.csproj
+  - team\sirius-game-dev-club-handong\dodgeGame_Demo\Assembly-CSharp.csproj
+  - team\sirius-game-dev-club-handong\DemoGame_Sky-Sprinkler\Assembly-CSharp-Editor.csproj
+  - team\sirius-game-dev-club-handong\DemoGame_Sky-Sprinkler\Assembly-CSharp.csproj
+  - personal\unity-xr-indoor-qr-navigation\Assembly-CSharp-Editor.csproj
+  - personal\unity-xr-indoor-qr-navigation\Assembly-CSharp.csproj
+- Dockerfile: 6
+  - resources\upstream-unity-ml-agents\Dockerfile
+  - personal\hub-gfootball-rl-facamp-2026-jan\_backup\facamp-2026-jan-early-clone\Dockerfile
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\unity-ml-soccer\ml-agents\Dockerfile
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\rl-soccer\Dockerfile
+  - personal\hub-gfootball-rl-facamp-2026-jan\personal\facamp-rlsoccer\Dockerfile
+  - personal\hub-gfootball-rl-facamp-2026-jan\camp\facamp-main\Dockerfile
+- Docker Compose: 0
+  - no examples
+

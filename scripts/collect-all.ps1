@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot
@@ -247,9 +247,17 @@ function Get-EditorSnapshot {
 
 function Get-RelativePath([string]$Base, [string]$Path) {
   try {
-    return [System.IO.Path]::GetRelativePath((Resolve-Path $Base), (Resolve-Path $Path))
+    $basePath = (Resolve-Path $Base).Path
+    $targetPath = (Resolve-Path $Path).Path
+    if (-not $basePath.EndsWith([System.IO.Path]::DirectorySeparatorChar)) {
+      $basePath = "$basePath$([System.IO.Path]::DirectorySeparatorChar)"
+    }
+    $baseUri = [System.Uri]::new($basePath)
+    $targetUri = [System.Uri]::new($targetPath)
+    $relative = [System.Uri]::UnescapeDataString($baseUri.MakeRelativeUri($targetUri).ToString())
+    return $relative.Replace("/", [System.IO.Path]::DirectorySeparatorChar)
   } catch {
-    return $Path
+    return Protect-LocalText $Path
   }
 }
 
@@ -352,7 +360,8 @@ function Get-AgentSnapshot([string]$WorkspacePath, $EditorSnapshot) {
         ($instructionNames -contains $leaf) -or ($_ -match "\\.cursor\\rules\\")
       } |
       Select-Object -First 80 |
-      ForEach-Object { Get-RelativePath $WorkspacePath $_ })
+      ForEach-Object { Get-RelativePath $WorkspacePath $_ } |
+      Where-Object { $_ -notmatch "^yuykim_Profile\\local_docs\\" })
   }
 
   [pscustomobject]@{
@@ -377,10 +386,251 @@ function Format-DisplayName([string]$Name) {
   }
 }
 
-function Write-Markdown($Path, [string[]]$Lines) {
+function Write-Markdown($Path, $Lines) {
   $dir = Split-Path -Parent $Path
   New-Item -ItemType Directory -Force -Path $dir | Out-Null
-  ($Lines -join "`n") + "`n" | Set-Content -Path $Path -Encoding UTF8
+  $flatLines = ConvertTo-FlatLines $Lines
+  ($flatLines -join "`n") + "`n" | Set-Content -Path $Path -Encoding UTF8
+}
+
+function ConvertTo-FlatLines($Lines) {
+  foreach ($line in $Lines) {
+    if (($line -is [System.Collections.IEnumerable]) -and -not ($line -is [string])) {
+      ConvertTo-FlatLines $line
+    } else {
+      [string]$line
+    }
+  }
+}
+
+function ConvertTo-MarkdownValue($Value) {
+  if ($null -eq $Value -or [string]::IsNullOrWhiteSpace([string]$Value)) { return "not detected" }
+  return (Protect-LocalText ([string]$Value)).Replace("`r", "").Replace("`n", "<br>")
+}
+
+function Get-JsonCommand([string]$Command, [string[]]$Arguments) {
+  $result = Get-CommandText $Command $Arguments
+  if (-not $result.detected -or -not $result.output) { return $null }
+  try {
+    return $result.output | ConvertFrom-Json
+  } catch {
+    return $null
+  }
+}
+
+function Get-PythonPackageSnapshot {
+  $pipList = Get-JsonCommand "python" @("-m", "pip", "list", "--format=json")
+  $watchNames = @(
+    "numpy", "pandas", "scipy", "scikit-learn", "matplotlib", "seaborn",
+    "jupyter", "jupyterlab", "notebook", "ipykernel", "ipywidgets",
+    "opencv-python", "networkx", "pyyaml", "tqdm", "torch", "torchvision",
+    "tensorflow", "keras", "gymnasium", "mlagents", "stable-baselines3"
+  )
+
+  $packages = @()
+  if ($pipList) {
+    $packages = @($pipList | Sort-Object name | ForEach-Object {
+      [pscustomobject]@{ name = $_.name; version = $_.version }
+    })
+  }
+
+  [pscustomobject]@{
+    collected_at = (Get-Date).ToUniversalTime().ToString("o")
+    packages = @($packages)
+    watched = @($packages | Where-Object { $watchNames -contains $_.name.ToLowerInvariant() })
+  }
+}
+
+function Get-CondaSnapshot {
+  $condaInfo = Get-JsonCommand "conda" @("info", "--json")
+  $condaEnvs = Get-JsonCommand "conda" @("env", "list", "--json")
+
+  [pscustomobject]@{
+    collected_at = (Get-Date).ToUniversalTime().ToString("o")
+    version = (Get-CommandText "conda" @("--version")).output
+    active_prefix = if ($condaInfo) { Protect-LocalText $condaInfo.active_prefix } else { $null }
+    active_prefix_name = if ($condaInfo) { $condaInfo.active_prefix_name } else { $null }
+    python_version = if ($condaInfo) { $condaInfo.python_version } else { $null }
+    envs = if ($condaEnvs) { @($condaEnvs.envs | ForEach-Object { Protect-LocalText $_ }) } else { @() }
+  }
+}
+
+function Get-JupyterSnapshot {
+  [pscustomobject]@{
+    collected_at = (Get-Date).ToUniversalTime().ToString("o")
+    jupyter = (Get-CommandText "jupyter" @("--version")).output
+    jupyter_lab = (Get-CommandText "jupyter-lab" @("--version")).output
+    notebook = (Get-CommandText "jupyter-notebook" @("--version")).output
+  }
+}
+
+function Write-LocalDocs($RepoRoot, $Machine, $System, $Languages, $Tools, $Editors, $Agents, $Workspace, $PythonPackages, $Conda, $Jupyter) {
+  $root = Join-Path $RepoRoot "local_docs"
+  New-Item -ItemType Directory -Force -Path $root | Out-Null
+
+  Write-Markdown -Path (Join-Path $root "README.md") -Lines (@(
+    "# Local Development Environment",
+    "",
+    "이 문서는 블로그 공개용이 아니라 로컬에서 개발 환경을 점검하고 새 PC를 세팅할 때 보기 위한 상세 문서다.",
+    "",
+    "- 마지막 수집: $($System.collected_at)",
+    ("- 머신: {0} ({1})" -f $Machine.label, $Machine.id),
+    "",
+    "## 문서 목록",
+    "",
+    "- [개발 환경](development-environment.md)",
+    "- [언어와 런타임](languages-and-runtimes.md)",
+    "- [Python 라이브러리](python-libraries.md)",
+    "- [Conda와 Jupyter](conda-jupyter.md)",
+    "- [개발 도구](tools.md)",
+    "- [VS Code 확장](vscode-extensions.md)",
+    "- [AI 에이전트](agents.md)",
+    "- [워크스페이스 사용 흔적](workspace-usage.md)"
+  ))
+
+  $gpuLines = @($System.hardware.gpu | ForEach-Object { "- $($_.name) / driver: $($_.driver_version) / RAM: $($_.adapter_ram_gb) GB" })
+  $diskLines = @($System.hardware.disks | ForEach-Object { "- $($_.drive) / size: $($_.size_gb) GB / free: $($_.free_gb) GB / fs: $($_.file_system)" })
+  Write-Markdown -Path (Join-Path $root "development-environment.md") -Lines (@(
+    "# 개발 환경",
+    "",
+    "## 머신",
+    "",
+    "- ID: $($Machine.id)",
+    "- 이름: $($Machine.label)",
+    "- 역할: $($Machine.role)",
+    "- 모델: $($System.hardware.manufacturer) $($System.hardware.model)",
+    "",
+    "## OS",
+    "",
+    "- OS: $($System.os.caption)",
+    "- Version: $($System.os.version)",
+    "- Build: $($System.os.build_number)",
+    "- Architecture: $($System.os.architecture)",
+    "",
+    "## CPU / RAM",
+    "",
+    "- CPU: $($System.hardware.cpu)",
+    "- Cores: $($System.hardware.cpu_cores)",
+    "- Logical processors: $($System.hardware.cpu_logical_processors)",
+    "- RAM: $($System.hardware.ram_gb) GB",
+    "",
+    "## GPU",
+    "",
+    $gpuLines,
+    "",
+    "## Disk",
+    "",
+    $diskLines
+  ))
+
+  $languageLines = @($Languages.languages | ForEach-Object {
+    "- $($_.name) / command: $($_.command) / detected: $($_.detected) / version: $(ConvertTo-MarkdownValue $_.version) / error: $(ConvertTo-MarkdownValue $_.error)"
+  })
+  Write-Markdown -Path (Join-Path $root "languages-and-runtimes.md") -Lines (@(
+    "# 언어와 런타임",
+    "",
+    "설치 여부와 버전은 명령어 실행 결과 기준이다.",
+    "",
+    $languageLines
+  ))
+
+  $watchedLines = @($PythonPackages.watched | ForEach-Object { "- $($_.name): $($_.version)" })
+  if ($watchedLines.Count -eq 0) { $watchedLines = @("- watched package not detected") }
+  $allPackageLines = @($PythonPackages.packages | ForEach-Object { "- $($_.name): $($_.version)" })
+  Write-Markdown -Path (Join-Path $root "python-libraries.md") -Lines (@(
+    "# Python 라이브러리",
+    "",
+    "## 주요 확인 대상",
+    "",
+    $watchedLines,
+    "",
+    "## 전체 pip 패키지",
+    "",
+    $allPackageLines
+  ))
+
+  $condaEnvLines = @($Conda.envs | ForEach-Object { "- $_" })
+  if ($condaEnvLines.Count -eq 0) { $condaEnvLines = @("- conda env not detected") }
+  Write-Markdown -Path (Join-Path $root "conda-jupyter.md") -Lines (@(
+    "# Conda와 Jupyter",
+    "",
+    "## Conda",
+    "",
+    "- Version: $(ConvertTo-MarkdownValue $Conda.version)",
+    "- Active env: $(ConvertTo-MarkdownValue $Conda.active_prefix_name)",
+    "- Python version: $(ConvertTo-MarkdownValue $Conda.python_version)",
+    "- Active prefix: $(ConvertTo-MarkdownValue $Conda.active_prefix)",
+    "",
+    "## Conda environments",
+    "",
+    $condaEnvLines,
+    "",
+    "## Jupyter",
+    "",
+    "- jupyter: $(ConvertTo-MarkdownValue $Jupyter.jupyter)",
+    "- jupyter-lab: $(ConvertTo-MarkdownValue $Jupyter.jupyter_lab)",
+    "- jupyter-notebook: $(ConvertTo-MarkdownValue $Jupyter.notebook)"
+  ))
+
+  $toolLines = @($Tools.tools | ForEach-Object {
+    "- $($_.name) / command: $($_.command) / detected: $($_.detected) / version: $(ConvertTo-MarkdownValue $_.version) / error: $(ConvertTo-MarkdownValue $_.error)"
+  })
+  Write-Markdown -Path (Join-Path $root "tools.md") -Lines (@(
+    "# 개발 도구",
+    "",
+    $toolLines
+  ))
+
+  $editorLines = @($Editors.editors | ForEach-Object {
+    "- $($_.name): $(ConvertTo-MarkdownValue $_.version)"
+  })
+  $vscodeLines = @($Editors.vscode_extensions.extensions | Sort-Object id | ForEach-Object { "- $($_.id): $($_.version)" })
+  $cursorLines = @($Editors.cursor_extensions.extensions | Sort-Object id | ForEach-Object { "- $($_.id): $($_.version)" })
+  if ($cursorLines.Count -eq 0) { $cursorLines = @("- Cursor extension list is empty or unavailable") }
+  Write-Markdown -Path (Join-Path $root "vscode-extensions.md") -Lines (@(
+    "# VS Code / Cursor 확장",
+    "",
+    "## Editors",
+    "",
+    $editorLines,
+    "",
+    "## VS Code extensions ($(@($Editors.vscode_extensions.extensions).Count))",
+    "",
+    $vscodeLines,
+    "",
+    "## Cursor extensions ($(@($Editors.cursor_extensions.extensions).Count))",
+    "",
+    $cursorLines
+  ))
+
+  $agentLines = @($Agents.agents | ForEach-Object {
+    "- $($_.name) / detected: $($_.detected) / version: $(ConvertTo-MarkdownValue $_.version) / source: $($_.source)"
+  })
+  $instructionLines = @($Agents.instruction_files | ForEach-Object { "- $_" })
+  if ($instructionLines.Count -eq 0) { $instructionLines = @("- instruction file not detected") }
+  Write-Markdown -Path (Join-Path $root "agents.md") -Lines (@(
+    "# AI 에이전트",
+    "",
+    "## 설치/확장 감지",
+    "",
+    $agentLines,
+    "",
+    "## 워크스페이스 지시 파일",
+    "",
+    $instructionLines
+  ))
+
+  $signalLines = @($Workspace.signals | ForEach-Object {
+    $examples = if ($_.examples.Count -gt 0) { ($_.examples | ForEach-Object { "  - $_" }) } else { @("  - no examples") }
+    @("- $($_.name): $($_.count)", $examples)
+  })
+  Write-Markdown -Path (Join-Path $root "workspace-usage.md") -Lines (@(
+    "# 워크스페이스 사용 흔적",
+    "",
+    "- scanned files: $($Workspace.scanned_files)",
+    "",
+    $signalLines
+  ))
 }
 
 function Render-MachineMarkdown($OutputPath, $System, $Languages, $Tools, $Editors, $Agents, $Workspace) {
@@ -516,6 +766,9 @@ $tools = Get-ToolSnapshot
 $editors = Get-EditorSnapshot
 $workspace = Get-WorkspaceUsageSnapshot $workspacePath
 $agents = Get-AgentSnapshot $workspacePath $editors
+$pythonPackages = Get-PythonPackageSnapshot
+$conda = Get-CondaSnapshot
+$jupyter = Get-JupyterSnapshot
 
 Write-Json (Join-Path $machineDir "system.json") $system
 Write-Json (Join-Path $machineDir "languages.json") $languages
@@ -523,9 +776,13 @@ Write-Json (Join-Path $machineDir "tools.json") $tools
 Write-Json (Join-Path $machineDir "editors.json") $editors
 Write-Json (Join-Path $machineDir "agents.json") $agents
 Write-Json (Join-Path $machineDir "workspace-usage.json") $workspace
+Write-Json (Join-Path $machineDir "python-packages.json") $pythonPackages
+Write-Json (Join-Path $machineDir "conda.json") $conda
+Write-Json (Join-Path $machineDir "jupyter.json") $jupyter
 Write-Json (Join-Path $machineDir "collected-at.json") ([pscustomobject]@{ collected_at = (Get-Date).ToUniversalTime().ToString("o") })
 
 Render-MachineMarkdown $machineDocPath $system $languages $tools $editors $agents $workspace
+Write-LocalDocs $RepoRoot $machine $system $languages $tools $editors $agents $workspace $pythonPackages $conda $jupyter
 
 $machineDirs = @(Get-ChildItem (Join-Path $RepoRoot "data/machines") -Directory -ErrorAction SilentlyContinue)
 $machines = @()
@@ -592,3 +849,6 @@ Render-IndexMarkdown (Join-Path $RepoRoot "dev_env/index.md") $summary @()
 
 Write-Host "Collected dev environment snapshot for '$($machine.id)'."
 Write-Host "Generated dev_env/index.md and $machineDocPath"
+
+
+

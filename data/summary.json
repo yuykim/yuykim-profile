@@ -1,11 +1,11 @@
 ﻿{
-    "updated_at":  "2026-05-30T09:13:28.5676034Z",
+    "updated_at":  "2026-05-30T09:56:27.4859342Z",
     "machines":  [
                      {
                          "id":  "main-laptop",
                          "label":  "Main Laptop",
                          "role":  "development machine",
-                         "collected_at":  "2026-05-30T09:12:50.2981411Z",
+                         "collected_at":  "2026-05-30T09:55:31.9130224Z",
                          "system":  {
                                         "os":  "Microsoft Windows 11 Home 10.0.26200",
                                         "model":  "ASUSTeK COMPUTER INC. ASUS TUF Gaming A14 FA401UV-RG025",

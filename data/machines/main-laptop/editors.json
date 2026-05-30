@@ -1,5 +1,5 @@
 ﻿{
-    "collected_at":  "2026-05-30T09:12:55.2345071Z",
+    "collected_at":  "2026-05-30T09:55:36.8779264Z",
     "editors":  [
                     {
                         "name":  "VS Code",
@@ -94,7 +94,7 @@
                                                  },
                                                  {
                                                      "id":  "ms-ceintl.vscode-language-pack-ko",
-                                                     "version":  "1.122.2026052914"
+                                                     "version":  "1.122.2026052917"
                                                  },
                                                  {
                                                      "id":  "ms-dotnettools.csdevkit",
@@ -229,6 +229,6 @@
                               "extensions":  [
 
                                              ],
-                              "error":  "(node:29216) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead."
+                              "error":  "(node:9196) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead."
                           }
 }

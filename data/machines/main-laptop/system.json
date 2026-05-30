@@ -5,7 +5,7 @@
                     "role":  "development machine",
                     "model":  "ASUS TUF Gaming A14 FA401UV-RG025"
                 },
-    "collected_at":  "2026-05-30T09:12:50.2981411Z",
+    "collected_at":  "2026-05-30T09:55:31.9130224Z",
     "os":  {
                "caption":  "Microsoft Windows 11 Home",
                "version":  "10.0.26200",
@@ -35,7 +35,7 @@
                                    {
                                        "drive":  "C:",
                                        "size_gb":  476,
-                                       "free_gb":  88.4,
+                                       "free_gb":  87.1,
                                        "file_system":  "NTFS"
                                    },
                                    {
